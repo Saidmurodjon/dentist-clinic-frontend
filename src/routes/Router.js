@@ -5,7 +5,7 @@ import {
 import Login from '../view/login/Login';
 import Admin from '../view/admin/Admin'
 import Doctor from "../view/doctors/Doctor";
-
+import Payment from "../view/admin/Payment";
 function Router(){
     
     return (
@@ -14,6 +14,7 @@ function Router(){
           <Route path="/" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/doctor" element={<Doctor />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </>
     );

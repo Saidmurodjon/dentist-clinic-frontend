@@ -27,9 +27,6 @@ function Doctor() {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
 
-  async function Add() {
-    console.log(patient);
-  }
   function AddService(e) {
     setTheArray((oldArray) => [...oldArray, e]);
     setPatient((prev) => {
@@ -38,6 +35,24 @@ function Doctor() {
         service: theArray,
       };
     });
+  }
+  async function Add() {
+    if (
+      patient.name.length <= 0 ||
+      patient.age.length <= 0 ||
+      patient.address.length <= 0 ||
+      patient.lastName.length <= 0 ||
+      patient.type.length <= 0
+    ) {
+      alert("ma'lumotlar to'liq kiritilmagan?");
+      return true;
+    } else {
+      await axios
+        .post("http://localhost:5000/patient", patient)
+        .then((res) => alert("bemor malumotlari qo'shildi."))
+        .catch((error) => console.log(error));
+      window.location.reload();
+    }
   }
   const Submit = (e) => {
     e.preventDefault();
@@ -81,12 +96,26 @@ function Doctor() {
                 value={patient.age}
                 onChange={changeHandler}
               />
+              <label className="form-check-label mt-2" htmlFor={"male"}>
+                Erkak
+              </label>
               <input
-                className="form-control mt-5"
-                type="text"
-                placeholder="Type"
+                id="male"
+                className="form-check-input m-3"
+                value="male"
                 name="type"
-                value={patient.type}
+                type="radio"
+                onChange={changeHandler}
+              />
+              <label className="form-check-label mt-2" htmlFor={"female"}>
+                Ayol
+              </label>
+              <input
+                id="female"
+                className="form-check-input m-3"
+                value="female"
+                name="type"
+                type="radio"
                 onChange={changeHandler}
               />
               <br />
@@ -94,7 +123,7 @@ function Doctor() {
                 {service.map((e) => {
                   return (
                     <div
-                      className="p-1 border-bottom"
+                      className="m-1 border-bottom"
                       onClick={() => AddService(e)}
                       key={e._id}
                     >
@@ -107,7 +136,7 @@ function Doctor() {
                 onClick={() => Add()}
                 value="Add"
                 type="submit"
-                className="btn btn-primary mt-3"
+                className="btn btn-primary m-2"
               />
             </form>
           </div>
