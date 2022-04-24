@@ -1,1 +1,2 @@
-# dentist-clinic-frontend
+# educationFrontend
+hamma o'zini page ni Routerga chaqirib birlashtirsin
