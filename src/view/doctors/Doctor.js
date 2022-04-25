@@ -15,6 +15,7 @@ function Doctor() {
     type: "",
     doctorName: "",
     date: date.getDate(),
+    tel: "+9989",
   });
   const [service, setServise] = useState([]);
   useEffect(() => {
@@ -48,7 +49,7 @@ function Doctor() {
       return true;
     } else {
       await axios
-        .post("http://localhost:5000/patient", patient)
+        .post("http://localhost:5000/ ", patient)
         .then((res) => alert("bemor malumotlari qo'shildi."))
         .catch((error) => console.log(error));
       window.location.reload();
