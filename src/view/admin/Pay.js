@@ -46,9 +46,9 @@ function Pay() {
   }
   // jami summa hisoblash
   // const [total, setTotal] = useState(0);
-  const total = PatientInfo.service
-    .map((item) => item.cost)
-    .reduce((prev, next) => prev + next);
+  // const total = PatientInfo.service
+  //   .map((item) => item.cost)
+  //   .reduce((prev, next) => prev + next);
 
   // Imzo qoyish functions
   let sigPad = useRef({});
@@ -105,10 +105,6 @@ function Pay() {
                 placeholder="tel"
                 name="tel"
                 value={patient.tel}
-                
-                
-                // htmlMinlength="13"
-                // htmlMaxlength="13"
                 onChange={changeHandler}
               />
               <input
@@ -131,7 +127,7 @@ function Pay() {
                 </div>
               );
             })}
-            <h3 className="tect text-danger mt-3">Jami summa: {total} so'm</h3>
+            <h3 className="tect text-danger mt-3">Jami summa: {} so'm</h3>
           </div>
           {/* Doctor haqida so'rovnoma */}
           <div className="col-md-12 col-sm-12">
