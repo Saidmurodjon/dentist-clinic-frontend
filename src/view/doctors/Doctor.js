@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import Cart from "../../components/cart/Cart";
 import Loader from "../../components/loader/Loader";
 import { ServicesList } from "../../components/services/ServicesList";
-import {ServiceModalList} from "../../components/servise-list/ServiceModalList";
+import { ServiceModalList } from "../../components/servise-list/ServiceModalList";
 import "./Doctor.css";
 const date = new Date();
 function Doctor() {
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
   const [service, setService] = useState([]);
-  const[showService,setShowService]=useState(false)
+  const [showService, setShowService] = useState(false);
   const [patient, setPatient] = useState({
     name: "",
     lastName: "",
@@ -22,7 +22,7 @@ function Doctor() {
     date: date.getDate(),
     tel: "+9989",
   });
-  console.log(patient)
+  console.log(patient);
   useEffect(() => {
     axios
       .get("http://localhost:5000/service")
@@ -36,6 +36,7 @@ function Doctor() {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
   async function Add() {
+    setPatient({ ...patient, service: order });
     if (
       patient.name.length <= 0 ||
       patient.age.length <= 0 ||
@@ -71,24 +72,24 @@ function Doctor() {
       setOrder([...order, newItem]);
     } else {
       const newOrder = order.map((orderItem, index) => {
-      if(index===itemIndex){
+        if (index === itemIndex) {
           return {
             ...orderItem,
             quantity: orderItem.quantity + 1,
           };
-      }else{
-        return orderItem
-      }
+        } else {
+          return orderItem;
+        }
       });
-      setOrder(newOrder)
+      setOrder(newOrder);
     }
   };
   console.log(order);
-// Kiritilgan service hizmatlarini ko'rsatish
-  const handleServiceShow=()=>{
-    setShowService(!showService)
+  // Kiritilgan service hizmatlarini ko'rsatish
+  const handleServiceShow = () => {
+    setShowService(!showService);
     // console.log(showService)
-  }
+  };
   return (
     <>
       <div className="container">
@@ -97,8 +98,16 @@ function Doctor() {
         ) : (
           <div className="row justify-content-center">
             <div className="col-md-12">
-              <Cart quantity={order.length} handleServiceShow={handleServiceShow}  />
-              {showService&& <ServiceModalList order={order} handleServiceShow={handleServiceShow}/>}
+              <Cart
+                quantity={order.length}
+                handleServiceShow={handleServiceShow}
+              />
+              {showService && (
+                <ServiceModalList
+                  order={order}
+                  handleServiceShow={handleServiceShow}
+                />
+              )}
             </div>
             <div className="col-md-6">
               <h1>Bemor qo'shish</h1>
