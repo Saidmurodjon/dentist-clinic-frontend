@@ -16,7 +16,7 @@ function Admin() {
   const [ch, setCh] = useState({});
   useEffect(() => {
     axios
-      .get("http://localhost:5000/service")
+      .get("https://dentist-back.herokuapp.com/service")
       .then((res) => {
         setServise(res.data);
         setLoading(false);
@@ -31,7 +31,7 @@ function Admin() {
   async function Send() {
     if (input.name.length > 0 && input.cost.length > 0) {
       axios
-        .post("http://localhost:5000/service", input)
+        .post("https://dentist-back.herokuapp.com/service", input)
         .then((res) => alert("malumot qo'shildi"))
         .catch((error) => console.log(error));
     } else {
@@ -49,13 +49,13 @@ function Admin() {
   //service delete
   async function Delete(e) {
     axios
-      .delete(`http://localhost:5000/service/${e._id}`)
+      .delete(`https://dentist-back.herokuapp.com/service/${e._id}`)
       .then((res) => alert("Hizmat o'chirildi"))
       .catch((error) => console.log(error));
   }
   async function Change() {
     await axios
-      .put(`http://localhost:5000/service/${ch._id}`, input)
+      .put(`https://dentist-back.herokuapp.com/service/${ch._id}`, input)
       .then((res) => {
         alert("Hizmat yangilandi");
         setShow(false);

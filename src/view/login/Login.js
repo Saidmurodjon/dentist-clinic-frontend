@@ -14,7 +14,7 @@ function Login() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/doctors")
+      .get("https://dentist-back.herokuapp.com/doctors")
       .then((res) => setDoctor(res.data))
       .catch((error) => console.log(error));
   }, []);

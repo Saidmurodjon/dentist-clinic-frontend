@@ -42,7 +42,10 @@ function Pay() {
       return true;
     } else {
       await axios
-        .put(`http://localhost:5000/patient/${PatientInfo._id}`, patient)
+        .put(
+          `https://dentist-back.herokuapp.com/patient/${PatientInfo._id}`,
+          patient
+        )
         .then((res) => alert("bemor malumotlari yangilandi."))
         .catch((error) => console.log(error));
       navigate(`/payment`);

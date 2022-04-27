@@ -8,7 +8,7 @@ function Shop(props) {
    const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/service")
+      .get("https://dentist-back.herokuapp.com/service")
       // .then((res)=>res.json())
       .then((res) => {
         res.data && setService(res.data);

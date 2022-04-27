@@ -28,7 +28,7 @@ function Doctor() {
   // console.log(patient);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/service")
+      .get("https://dentist-back.herokuapp.com/service")
       .then((res) => {
         res.data && setService(res.data);
         setLoading(false);
@@ -50,7 +50,7 @@ function Doctor() {
       // return true;
     } else {
       await axios
-        .post("http://localhost:5000/patient", patient)
+        .post("https://dentist-back.herokuapp.com/patient", patient)
         .then((res) => {
           alert("bemor malumotlari qo'shildi.");
           console.log(res);

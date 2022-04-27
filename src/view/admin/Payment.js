@@ -10,17 +10,17 @@ function Payment() {
   const [patient, setPatient] = useState([]);
   // console.log(patient);
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/patient")
-      .then((res) => {
-        setPatient(res.data);
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
+     axios
+       .get("https://dentist-back.herokuapp.com/patient")
+       .then((res) => {
+         setPatient(res.data);
+         setLoading(false);
+       })
+       .catch((error) => console.log(error));
   }, []);
   // const Delete = async (elem) => {
   //   await axios
-  //     .delete(`http://localhost:5000/patient/${elem._id}`)
+  //     .delete(`hhttps://dentist-back.herokuapp.com/patient/${elem._id}`)
   //     .then((res) => alert("Bemor ma'lumotlari o'chirildi"))
   //     .catch((error) => console.log(error));
   //   window.location.reload();
@@ -29,7 +29,7 @@ function Payment() {
     localStorage.setItem("PayPatient", JSON.stringify(elem));
     navigate(`/pay/${elem._id}`);
     // await axios
-    //   .put(`http://localhost:5000/patient/${elem._id}`)
+    //   .put(`hhttps://dentist-back.herokuapp.com/patient/${elem._id}`)
     //   .then((res) => alert("Bemor ma'lumotlari o'chirildi"))
     //   .catch((error) => console.log(error));
     // window.location.reload();
