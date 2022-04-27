@@ -1,0 +1,21 @@
+.service-modeal-list{
+    position: fixed;
+    top :40%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    background: #fff;
+    width: 50rem;
+    max-width: 95%;
+    box-shadow: 0 6px 15px 0 rgba(0,0,0,.5);
+
+}
+.service-modal-icon{
+    cursor: pointer;
+    position: absolute;
+    top:.5rem;
+    right: .5rem;
+    color: #fff;
+}
+.service-modal-delete{
+    cursor: pointer;
+}

@@ -3,25 +3,26 @@ import React, { useEffect, useState } from "react";
 import Cart from "../../components/cart/Cart";
 import Loader from "../../components/loader/Loader";
 import { ServicesList } from "../../components/services/ServicesList";
+import {ServiceModalList} from "../../components/servise-list/ServiceModalList";
 import "./Doctor.css";
 const date = new Date();
 function Doctor() {
   const [loading, setLoading] = useState(true);
-
   const [order, setOrder] = useState([]);
-
+  const [service, setService] = useState([]);
+  const[showService,setShowService]=useState(false)
   const [patient, setPatient] = useState({
     name: "",
     lastName: "",
     address: "",
     age: "",
-    service: [],
+    service: order,
     type: "",
     doctorName: "",
     date: date.getDate(),
     tel: "+9989",
   });
-  const [service, setService] = useState([]);
+  console.log(patient)
   useEffect(() => {
     axios
       .get("http://localhost:5000/service")
@@ -83,6 +84,11 @@ function Doctor() {
     }
   };
   console.log(order);
+// Kiritilgan service hizmatlarini ko'rsatish
+  const handleServiceShow=()=>{
+    setShowService(!showService)
+    // console.log(showService)
+  }
   return (
     <>
       <div className="container">
@@ -91,7 +97,8 @@ function Doctor() {
         ) : (
           <div className="row justify-content-center">
             <div className="col-md-12">
-              <Cart quantity={order.length} />
+              <Cart quantity={order.length} handleServiceShow={handleServiceShow}  />
+              {showService&& <ServiceModalList order={order} handleServiceShow={handleServiceShow}/>}
             </div>
             <div className="col-md-6">
               <h1>Bemor qo'shish</h1>
