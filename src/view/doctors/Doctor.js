@@ -22,9 +22,9 @@ function Doctor() {
     date: date.getDate(),
     tel: "+9989",
   });
-  useEffect(()=>{
-    setPatient({ ...patient, service: order })
-  },[order])
+  useEffect(() => {
+    setPatient({ ...patient, service: order });
+  }, [order]);
   // console.log(patient);
   useEffect(() => {
     axios
@@ -88,45 +88,45 @@ function Doctor() {
     }
   };
   //servisce hizmatlari sonini ko'paytirish
-  const incQuantity=(itemID)=>{
-    const newOrder=order.map(elem=>{
-      if(elem._id===itemID){
-        const newQuantity=elem.quantity+1
-        return{
+  const incQuantity = (itemID) => {
+    const newOrder = order.map((elem) => {
+      if (elem._id === itemID) {
+        const newQuantity = elem.quantity + 1;
+        return {
           ...elem,
-          quantity: newQuantity
-        }
-      }else {
-        return elem
+          quantity: newQuantity,
+        };
+      } else {
+        return elem;
       }
-    })
-    setOrder(newOrder)
-  }
+    });
+    setOrder(newOrder);
+  };
   //servisce hizmatlari sonini ko'paytirish
-  const decQuantity=(itemID)=>{
-    const newOrder=order.map(elem=>{
-      if(elem._id===itemID){
-        const newQuantity=elem.quantity-1
-        return{
+  const decQuantity = (itemID) => {
+    const newOrder = order.map((elem) => {
+      if (elem._id === itemID) {
+        const newQuantity = elem.quantity - 1;
+        return {
           ...elem,
-          quantity: newQuantity >=0?newQuantity:0
-        }
-      }else {
-        return elem
+          quantity: newQuantity >= 0 ? newQuantity : 0,
+        };
+      } else {
+        return elem;
       }
-    })
-    setOrder(newOrder)
-  }
+    });
+    setOrder(newOrder);
+  };
   // Kiritilgan service hizmatlarini ko'rsatish
   const handleServiceShow = () => {
     setShowService(!showService);
     // console.log(showService)
   };
   //Service hizmatlarini delete qilish
-  const removeServiceModal=(itemID)=>{
-const newOrder=order.filter(item=>item._id!==itemID)
-    setOrder(newOrder)
-  }
+  const removeServiceModal = (itemID) => {
+    const newOrder = order.filter((item) => item._id !== itemID);
+    setOrder(newOrder);
+  };
   return (
     <>
       <div className="container">

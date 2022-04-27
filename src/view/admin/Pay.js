@@ -2,23 +2,27 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
+import Navbar from "../../components/navbar/Navbar";
 function Pay() {
   const date = new Date();
   const PatientInfo = JSON.parse(localStorage.getItem("PayPatient"));
   const navigate = useNavigate();
-
+  var total = 0;
   const [patient, setPatient] = useState({
     name: PatientInfo.name,
     lastName: PatientInfo.lastName,
     address: PatientInfo.address,
     age: PatientInfo.age,
     service: PatientInfo.service,
-    type: "+"+PatientInfo.type,
+    type: "+" + PatientInfo.type,
     doctorName: PatientInfo.doctorName,
     tel: "",
     date: date.getDate(),
+    signature: "",
   });
-  console.log(patient);
+  // console.log(patient);
+  const [show, setShow] = useState(false);
+  const [conoform, setConiform] = useState(false);
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
@@ -44,28 +48,27 @@ function Pay() {
       navigate(`/payment`);
     }
   }
-  // jami summa hisoblash
-  // const [total, setTotal] = useState(0);
-  // const total = PatientInfo.service
-  //   .map((item) => item.cost)
-  //   .reduce((prev, next) => prev + next);
-
   // Imzo qoyish functions
   let sigPad = useRef({});
-  const [signature, setSignature] = useState("");
   const clear = () => {
     sigPad.current.clear();
-    setSignature("");
   };
   const save = () => {
-    setSignature(sigPad.current.toDataURL());
+    setPatient((prev) => ({ ...prev, signature: sigPad.current.toDataURL() }));
+    if (patient.tel.length > 12 && patient.signature) {
+      setShow(true);
+    } else {
+      alert("Telefon raqam kiriting");
+    }
   };
+  // console.log(patient)
   return (
     <>
+      <Navbar />
       <div className="container">
         <h1>Bemor ma'lumotlari</h1>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-12">
             <form onSubmit={Submit} className="globalBorder border-light">
               <input
                 className="form-control mt-5"
@@ -107,27 +110,33 @@ function Pay() {
                 value={patient.tel}
                 onChange={changeHandler}
               />
-              <input
-                onClick={() => Add()}
-                value="Add"
-                type="submit"
-                className="btn btn-primary m-2"
-              />
+              {/*<input*/}
+              {/*  onClick={() => Add()}*/}
+              {/*  value="Add"*/}
+              {/*  type="submit"*/}
+              {/*  className="btn btn-primary m-2"*/}
+              {/*/>*/}
             </form>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 col-sm-12">
             <h1>Service Hizmatlar</h1>
             {PatientInfo.service.map((item, index) => {
+              total += item.cost * item.quantity;
               return (
                 <div key={index}>
-                  <h3 className="d-inline">
-                    {" "}
-                    {index + 1}. {item.name}: {item.cost} so'm{" "}
+                  <h3 className="">
+                    <b>{index + 1}.</b> {item.name}{" "}
+                    <span>
+                      {item.cost}x{item.quantity}={item.cost * item.quantity}{" "}
+                      so'm{" "}
+                    </span>
                   </h3>
                 </div>
               );
             })}
-            <h3 className="tect text-danger mt-3">Jami summa: {} so'm</h3>
+            <h3 className="mt-3">
+              Jami summa:<b className={"text-danger"}> {total}</b> so'm
+            </h3>
           </div>
           {/* Doctor haqida so'rovnoma */}
           <div className="col-md-12 col-sm-12">
@@ -149,30 +158,45 @@ function Pay() {
               corporis laudantium et magni, illum reiciendis quidem neque odio.
               Accusantium, nostrum!
             </p>
+            <h3 onClick={(e) => setConiform(true)} className={"text-danger"}>
+              Yuqoridagi shartlarga roziman !
+            </h3>
           </div>
           {/* Imzo qo'yish uchun */}
 
-          <div className="col-md-8 justify-content-center">
-            <SignatureCanvas
-              backgroundColor="rgb(240,230,140)"
-              penColor="black"
-              canvasProps={{ width: 800, height: 600 }}
-              ref={sigPad}
-            />
-            <button className="btn btn-info" onClick={clear}>
-              Clear
-            </button>
-            <button className="btn btn-danger" onClick={save}>
-              Save
-            </button>
-          </div>
-          <div className="col-md-12 justify-content-center">
-            <img
-              src={signature}
-              className="img-thumbnail w-25 mt-5"
-              alt="signature"
-            />
-          </div>
+          {conoform ? (
+            <>
+              <div className="col-md-8  justify-content-center w-100">
+                <SignatureCanvas
+                  backgroundColor="rgb(240,230,140)"
+                  penColor="black"
+                  canvasProps={{ width: 700, height: 600 }}
+                  ref={sigPad}
+                />
+                <br />
+                <button className="btn btn-info m-2" onClick={clear}>
+                  Clear
+                </button>
+                <button className="btn btn-danger m-2" onClick={save}>
+                  Save
+                </button>
+              </div>
+              <div className="col-md-12 justify-content-center">
+                {/*<img*/}
+                {/*    src={patient.signature}*/}
+                {/*    className="img-thumbnail w-25 mt-5"*/}
+                {/*    alt="signature"*/}
+                {/*/>*/}
+              </div>
+              <div>
+                {show ? (
+                  <button className={"btn btn-primary"} onClick={Add}>
+                    Update
+                  </button>
+                ) : null}
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     </>

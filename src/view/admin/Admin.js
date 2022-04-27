@@ -1,22 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Loader from "../../components/loader/Loader";
+import Navbar from "../../components/navbar/Navbar";
+import "../../components/servise-list/ServiceModal.css";
 function Admin() {
   const date = new Date();
   const [service, setServise] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(false);
   const [input, setInput] = useState({
     name: "",
     cost: "",
     date: date.getDate(),
   });
-  console.log(input);
+  const [ch, setCh] = useState({});
   useEffect(() => {
     axios
       .get("http://localhost:5000/service")
       .then((res) => {
         setServise(res.data);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -36,9 +39,13 @@ function Admin() {
     }
   }
   //edit qilish uchun
+  var serviceID = {};
   function Edit(e) {
-    console.log(e);
+    setShow(true);
+    setCh(e);
   }
+
+  // console.log(ch)
   //service delete
   async function Delete(e) {
     axios
@@ -46,20 +53,84 @@ function Admin() {
       .then((res) => alert("Hizmat o'chirildi"))
       .catch((error) => console.log(error));
   }
+  async function Change() {
+    await axios
+      .put(`http://localhost:5000/service/${ch._id}`, input)
+      .then((res) => {
+        alert("Hizmat yangilandi");
+        setShow(false);
+        window.location.reload();
+      })
+      .catch((error) => console.log(error));
 
+    console.log(input);
+  }
   const Submit = (e) => {
     e.preventDefault();
   };
   return (
     <>
+      <Navbar />
       <div className="container">
-        <h3>Admin page</h3>
         {loading ? (
           <Loader />
         ) : (
           <div className="row justify-content-center">
+            {/*Service update qismi boshlandi*/}
+            {show ? (
+              <>
+                <div className={"service-modal-list-style"}>
+                  <div
+                    className={"col-md-12 col-sm-12 service-modeal-list w-50"}
+                  >
+                    <ul className={"collection"}>
+                      <li className={"collection-item active"}>
+                        Service Update
+                      </li>
+                      <i
+                        className={"material-icons service-modal-icon"}
+                        onClick={(e) => setShow(false)}
+                      >
+                        {" "}
+                        close
+                      </i>
+                    </ul>
+                    <form
+                      onSubmit={Submit}
+                      className="globalBorder border-light p-4"
+                    >
+                      <input
+                        className="form-control p-2"
+                        type="text"
+                        placeholder="Name"
+                        name="name"
+                        value={input.name}
+                        onChange={changeHandler}
+                      />
+
+                      <input
+                        className="form-control p-2"
+                        type="text"
+                        placeholder="Cost"
+                        name="cost"
+                        value={input.cost}
+                        onChange={changeHandler}
+                      />
+                      <input
+                        onClick={() => Change()}
+                        value="Change"
+                        type="submit"
+                        className="btn btn-primary mt-3"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </>
+            ) : null}
+            {/*Service update qismi tugadi*/}
+
             <div className="col-md-6">
-              <h4>Yangi hizmat qo'shish</h4>
+              <h2>Yangi hizmat qo'shish</h2>
               <div className="">
                 <form onSubmit={Submit} className="globalBorder border-light">
                   <input
@@ -89,14 +160,19 @@ function Admin() {
               </div>
             </div>
             <div className="col-md-6">
-              <h4>Hizmatlar</h4>
+              <h2>Hizmatlar</h2>
               {service.map((e) => {
-                console.log(e._id);
+                // console.log(e._id);
                 return (
-                  <div key={e._id}>
-                    <h1>
-                      {e.name} :{e.cost} so'm
-                    </h1>
+                  <div key={e._id} className={"text-black border-bottom"}>
+                    <h4>
+                      <b>Hizmat turi : </b>
+                      {e.name}
+                    </h4>
+                    <h4>
+                      <b>Narxi : </b>
+                      {e.cost} so'm
+                    </h4>
 
                     <button
                       className="btn m-2 btn-info"

@@ -8,7 +8,7 @@ function Login() {
   const [doctor, setDoctor] = useState([]);
 
   const [login, setLogin] = useState({
-    login: "",  
+    login: "",
     password: "",
   });
 

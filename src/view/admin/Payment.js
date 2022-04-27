@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
+import Navbar from "../../components/navbar/Navbar";
+import PatientCardList from "../../components/patient-card/PatientCardList";
 function Payment() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -16,13 +18,13 @@ function Payment() {
       })
       .catch((error) => console.log(error));
   }, []);
-  const Delete = async (elem) => {
-    await axios
-      .delete(`http://localhost:5000/patient/${elem._id}`)
-      .then((res) => alert("Bemor ma'lumotlari o'chirildi"))
-      .catch((error) => console.log(error));
-    window.location.reload();
-  };
+  // const Delete = async (elem) => {
+  //   await axios
+  //     .delete(`http://localhost:5000/patient/${elem._id}`)
+  //     .then((res) => alert("Bemor ma'lumotlari o'chirildi"))
+  //     .catch((error) => console.log(error));
+  //   window.location.reload();
+  // };
   const Update = async (elem) => {
     localStorage.setItem("PayPatient", JSON.stringify(elem));
     navigate(`/pay/${elem._id}`);
@@ -34,36 +36,13 @@ function Payment() {
   };
   return (
     <>
+      <Navbar />
       <div className="container">
         {loading ? (
           <Loader />
         ) : (
-          <div className="row justify-content-center">
-            {patient.map((elem) => {
-              return (
-                <div
-                  className="col-md-3 justify-content-center border border-primary m-3"
-                  key={elem._id}
-                >
-                  <h3 className="text overflow-hidden">
-                    {elem.name} {elem.className}
-                  </h3>
-
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => Delete(elem)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => Update(elem)}
-                  >
-                    Update
-                  </button>
-                </div>
-              );
-            })}
+          <div className="">
+            <PatientCardList patient={patient} Update={Update} />
           </div>
         )}
       </div>
