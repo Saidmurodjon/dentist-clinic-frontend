@@ -22,7 +22,10 @@ function Doctor() {
     date: date.getDate(),
     tel: "+9989",
   });
-  console.log(patient);
+  useEffect(()=>{
+    setPatient({ ...patient, service: order })
+  },[order])
+  // console.log(patient);
   useEffect(() => {
     axios
       .get("http://localhost:5000/service")
@@ -35,8 +38,8 @@ function Doctor() {
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
+  //Yangi kelgan bemorni ma'lumotlarini qo'shish
   async function Add() {
-    setPatient({ ...patient, service: order });
     if (
       patient.name.length <= 0 ||
       patient.age.length <= 0 ||
@@ -84,12 +87,46 @@ function Doctor() {
       setOrder(newOrder);
     }
   };
-  console.log(order);
+  //servisce hizmatlari sonini ko'paytirish
+  const incQuantity=(itemID)=>{
+    const newOrder=order.map(elem=>{
+      if(elem._id===itemID){
+        const newQuantity=elem.quantity+1
+        return{
+          ...elem,
+          quantity: newQuantity
+        }
+      }else {
+        return elem
+      }
+    })
+    setOrder(newOrder)
+  }
+  //servisce hizmatlari sonini ko'paytirish
+  const decQuantity=(itemID)=>{
+    const newOrder=order.map(elem=>{
+      if(elem._id===itemID){
+        const newQuantity=elem.quantity-1
+        return{
+          ...elem,
+          quantity: newQuantity >=0?newQuantity:0
+        }
+      }else {
+        return elem
+      }
+    })
+    setOrder(newOrder)
+  }
   // Kiritilgan service hizmatlarini ko'rsatish
   const handleServiceShow = () => {
     setShowService(!showService);
     // console.log(showService)
   };
+  //Service hizmatlarini delete qilish
+  const removeServiceModal=(itemID)=>{
+const newOrder=order.filter(item=>item._id!==itemID)
+    setOrder(newOrder)
+  }
   return (
     <>
       <div className="container">
@@ -106,6 +143,9 @@ function Doctor() {
                 <ServiceModalList
                   order={order}
                   handleServiceShow={handleServiceShow}
+                  removeServiceModal={removeServiceModal}
+                  incQuantity={incQuantity}
+                  decQuantity={decQuantity}
                 />
               )}
             </div>
@@ -151,7 +191,7 @@ function Doctor() {
                     name="type"
                     type="radio"
                     className="form-check-input m-5"
-                    value="female"
+                    value="male"
                     onChange={changeHandler}
                   />
                   <span>Erkak</span>
@@ -162,7 +202,7 @@ function Doctor() {
                     name="type"
                     type="radio"
                     className="form-check-input m-5"
-                    value="male"
+                    value="female"
                     onChange={changeHandler}
                   />
                   <span>Ayol</span>

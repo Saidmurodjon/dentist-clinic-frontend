@@ -1,12 +1,22 @@
+.service-modal-list-style{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+    overflow: hidden;
+}
 .service-modeal-list{
     position: fixed;
-    top :40%;
+    top :10%;
     left: 50%;
     transform: translate(-50%,50%);
     background: #fff;
     width: 50rem;
     max-width: 95%;
     box-shadow: 0 6px 15px 0 rgba(0,0,0,.5);
+    animation: show .5s ease-in-out;
 
 }
 .service-modal-icon{
@@ -18,4 +28,8 @@
 }
 .service-modal-delete{
     cursor: pointer;
+}
+@keyframes show {
+    from{top:10%;opacity: 0}
+    to{top:10%;opacity: 1}
 }
