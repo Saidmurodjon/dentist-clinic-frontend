@@ -46,32 +46,35 @@ function Login() {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-md-4 mt-5">
-          <form onSubmit={Submit} className="globalBorder border-light">
-            <input
-              className="form-control mt-5"
-              type="text"
-              placeholder="Login"
-              name="login"
-              value={login.login}
-              onChange={changeHandler}
-            />
+        <div className="col-md-4">
+          <div className="card border-0 top-50">
+            <h2 className="p-4 text-sm-center">Login</h2>
+            <form onSubmit={Submit} className="globalBorder border-light p-4">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Login"
+                name="login"
+                value={login.login}
+                onChange={changeHandler}
+              />
 
-            <input
-              className="form-control mt-5"
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={login.password}
-              onChange={changeHandler}
-            />
-            <input
-              onClick={() => Check()}
-              value="Login"
-              type="submit"
-              className="btn btn-primary mt-3"
-            />
-          </form>
+              <input
+                className="form-control mt-5"
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={login.password}
+                onChange={changeHandler}
+              />
+              <input
+                onClick={() => Check()}
+                value="Login"
+                type="submit"
+                className="btn btn-primary mt-3"
+              />
+            </form>
+          </div>
         </div>
       </div>
     </div>
