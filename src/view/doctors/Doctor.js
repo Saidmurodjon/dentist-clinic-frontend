@@ -7,6 +7,7 @@ import { ServiceModalList } from "../../components/servise-list/ServiceModalList
 import "./Doctor.css";
 const date = new Date();
 function Doctor() {
+  const doctor = JSON.parse(localStorage.getItem("doctor"));
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
   const [service, setService] = useState([]);
@@ -18,7 +19,7 @@ function Doctor() {
     age: "",
     service: order,
     type: "",
-    doctorName: "",
+    doctorName: doctor.name,
     date: date.getDate(),
     tel: "+9989",
   });
@@ -150,76 +151,83 @@ function Doctor() {
               )}
             </div>
             <div className="col-md-6">
-              <h1>Bemor qo'shish</h1>
-              <form onSubmit={Submit} className="globalBorder border-light">
-                <input
-                  className="form-control mt-5"
-                  type="text"
-                  placeholder="Name"
-                  name="name"
-                  value={patient.name}
-                  onChange={changeHandler}
-                />
-                <input
-                  className="form-control mt-5"
-                  type="text"
-                  placeholder="Last Name"
-                  name="lastName"
-                  value={patient.lastName}
-                  onChange={changeHandler}
-                />
-                <input
-                  className="form-control mt-5"
-                  type="text"
-                  placeholder="Address"
-                  name="address"
-                  value={patient.address}
-                  onChange={changeHandler}
-                />
-                <input
-                  className="form-control mt-5"
-                  type="number"
-                  placeholder="Age"
-                  name="age"
-                  value={patient.age}
-                  min="0"
-                  onChange={changeHandler}
-                />
-                <br />
-                <label>
+              <div className="card">
+                <ul className="collection mt-0">
+                  <li className={"collection-item active"}>Bemor qo'shish</li>
+                </ul>
+                <form
+                  onSubmit={Submit}
+                  className="globalBorder border-light p-3"
+                >
                   <input
-                    name="type"
-                    type="radio"
-                    className="form-check-input m-5"
-                    value="male"
+                    className="form-control mt-5"
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={patient.name}
                     onChange={changeHandler}
                   />
-                  <span>Erkak</span>
-                </label>
+                  <input
+                    className="form-control mt-5"
+                    type="text"
+                    placeholder="Last Name"
+                    name="lastName"
+                    value={patient.lastName}
+                    onChange={changeHandler}
+                  />
+                  <input
+                    className="form-control mt-5"
+                    type="text"
+                    placeholder="Address"
+                    name="address"
+                    value={patient.address}
+                    onChange={changeHandler}
+                  />
+                  <input
+                    className="form-control mt-5"
+                    type="number"
+                    placeholder="Age"
+                    name="age"
+                    value={patient.age}
+                    min="0"
+                    onChange={changeHandler}
+                  />
+                  <br />
+                  <label>
+                    <input
+                      name="type"
+                      type="radio"
+                      className="form-check-input m-5"
+                      value="male"
+                      onChange={changeHandler}
+                    />
+                    <span>Erkak</span>
+                  </label>
 
-                <label>
+                  <label>
+                    <input
+                      name="type"
+                      type="radio"
+                      className="form-check-input m-5"
+                      value="female"
+                      onChange={changeHandler}
+                    />
+                    <span>Ayol</span>
+                  </label>
+                  <br />
+                  <br />
+                  <br />
+                  <div className="border service">
+                    <ServicesList service={service} AddBasket={AddBasket} />
+                  </div>
                   <input
-                    name="type"
-                    type="radio"
-                    className="form-check-input m-5"
-                    value="female"
-                    onChange={changeHandler}
+                    onClick={() => Add()}
+                    value="Add"
+                    type="submit"
+                    className="btn btn-primary m-2"
                   />
-                  <span>Ayol</span>
-                </label>
-                <br />
-                <br />
-                <br />
-                <div className="border service">
-                  <ServicesList service={service} AddBasket={AddBasket} />
-                </div>
-                <input
-                  onClick={() => Add()}
-                  value="Add"
-                  type="submit"
-                  className="btn btn-primary m-2"
-                />
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         )}

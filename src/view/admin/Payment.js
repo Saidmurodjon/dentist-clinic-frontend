@@ -8,6 +8,7 @@ function Payment() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [patient, setPatient] = useState([]);
+  const[filP,setFilP]=useState([])
   // console.log(patient);
   useEffect(() => {
      axios
@@ -18,6 +19,12 @@ function Payment() {
        })
        .catch((error) => console.log(error));
   }, []);
+ useEffect(() => {
+    const newOrder = patient.filter((item) => !item.signature);
+    setFilP(newOrder);
+ }, [patient]);
+  
+
   // const Delete = async (elem) => {
   //   await axios
   //     .delete(`hhttps://dentist-back.herokuapp.com/patient/${elem._id}`)
@@ -42,7 +49,7 @@ function Payment() {
           <Loader />
         ) : (
           <div className="">
-            <PatientCardList patient={patient} Update={Update} />
+            <PatientCardList filP={filP} Update={Update} />
           </div>
         )}
       </div>

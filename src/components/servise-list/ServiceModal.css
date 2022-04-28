@@ -6,10 +6,11 @@
     bottom: 0;
     background: rgba(0,0,0,.5);
     overflow: hidden;
+    z-index: 5;
 }
 .service-modeal-list{
     position: fixed;
-    top :1%;
+    top :30%;
     left: 50%;
     transform: translate(-50%,50%);
     background: #fff;

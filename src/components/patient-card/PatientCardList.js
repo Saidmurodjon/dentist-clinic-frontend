@@ -2,13 +2,13 @@ import React from "react";
 import PatientCardItem from "./PatientCardItem";
 
 function PatientCardList(props) {
-  const { patient = [], Update } = props;
-  if (!patient.length) {
+  const { filP = [], Update } = props;
+  if (!filP.length) {
     return <h3>Bemor ma'lumotlari mavjud emas!</h3>;
   }
   return (
     <div className={"row "}>
-      {patient.map((item) => (
+      {filP.reverse().map((item) => (
         <PatientCardItem key={item._id} {...item} Update={Update} />
       ))}
     </div>

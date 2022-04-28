@@ -4,6 +4,8 @@ import Payment from "../view/admin/Payment";
 import Doctor from "../view/doctors/Doctor";
 import Login from "../view/login/Login";
 import Pay from "../view/admin/Pay";
+import AddDoctor from "../view/add-doctor/AddDoctor";
+import ChangeDoctor from '../components/change-doctor/ChangeDoctor'
 function Router() {
   return (
     <>
@@ -13,6 +15,8 @@ function Router() {
         <Route path="/doctor" element={<Doctor />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/pay/:id" element={<Pay />} />
+        <Route path="/add-doctor" element={<AddDoctor />} />
+        <Route path="/add-doctor/:id" element={<ChangeDoctor />} />
       </Routes>
     </>
   );

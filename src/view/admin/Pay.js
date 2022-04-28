@@ -14,13 +14,13 @@ function Pay() {
     address: PatientInfo.address,
     age: PatientInfo.age,
     service: PatientInfo.service,
-    type: "+" + PatientInfo.type,
+    type: PatientInfo.type,
     doctorName: PatientInfo.doctorName,
     tel: "",
     date: date.getDate(),
     signature: "",
   });
-  // console.log(patient);
+  console.log(PatientInfo);
   const [show, setShow] = useState(false);
   const [conoform, setConiform] = useState(false);
   const changeHandler = (e) => {
@@ -58,7 +58,7 @@ function Pay() {
   };
   const save = () => {
     setPatient((prev) => ({ ...prev, signature: sigPad.current.toDataURL() }));
-    if (patient.tel.length > 12 && patient.signature) {
+    if (patient.tel.length > 12) {
       setShow(true);
     } else {
       alert("Telefon raqam kiriting");
@@ -113,12 +113,6 @@ function Pay() {
                 value={patient.tel}
                 onChange={changeHandler}
               />
-              {/*<input*/}
-              {/*  onClick={() => Add()}*/}
-              {/*  value="Add"*/}
-              {/*  type="submit"*/}
-              {/*  className="btn btn-primary m-2"*/}
-              {/*/>*/}
             </form>
           </div>
           <div className="col-md-6 col-sm-12">
@@ -161,7 +155,11 @@ function Pay() {
               corporis laudantium et magni, illum reiciendis quidem neque odio.
               Accusantium, nostrum!
             </p>
-            <h3 onClick={(e) => setConiform(true)} className={"text-danger"}>
+            <h3
+              onClick={(e) => setConiform(true)}
+              className={"text-danger"}
+              style={{ cursor: "pointer" }}
+            >
               Yuqoridagi shartlarga roziman !
             </h3>
           </div>

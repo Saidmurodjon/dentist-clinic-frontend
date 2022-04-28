@@ -18,7 +18,6 @@ function Login() {
       .then((res) => setDoctor(res.data))
       .catch((error) => console.log(error));
   }, []);
-  console.log(doctor);
   const changeHandler = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
@@ -29,6 +28,7 @@ function Login() {
     } else if (login.login.length > 0 && login.password.length > 0) {
       for (let i = 0; i < doctor.length; i++) {
         if (doctor[i].login === login.login) {
+          localStorage.setItem("doctor", JSON.stringify(doctor[i]));
           navigate("/doctor");
         }
       }

@@ -30,9 +30,12 @@ function Admin() {
 
   async function Send() {
     if (input.name.length > 0 && input.cost.length > 0) {
-      axios
+      await axios
         .post("https://dentist-back.herokuapp.com/service", input)
-        .then((res) => alert("malumot qo'shildi"))
+        .then((res) => {
+          alert("malumot qo'shildi");
+          window.location.reload();
+        })
         .catch((error) => console.log(error));
     } else {
       alert("maydonni to'ldiring");
@@ -50,7 +53,10 @@ function Admin() {
   async function Delete(e) {
     axios
       .delete(`https://dentist-back.herokuapp.com/service/${e._id}`)
-      .then((res) => alert("Hizmat o'chirildi"))
+      .then((res) => {
+        alert("Hizmat o'chirildi");
+        window.location.reload();
+      })
       .catch((error) => console.log(error));
   }
   async function Change() {
@@ -63,11 +69,12 @@ function Admin() {
       })
       .catch((error) => console.log(error));
 
-    console.log(input);
+    // console.log(input);
   }
   const Submit = (e) => {
     e.preventDefault();
   };
+
   return (
     <>
       <Navbar />
@@ -83,7 +90,7 @@ function Admin() {
                   <div
                     className={"col-md-12 col-sm-12 service-modeal-list w-50"}
                   >
-                    <ul className={"collection"}>
+                    <ul className={"collection mt-0"}>
                       <li className={"collection-item active"}>
                         Service Update
                       </li>
@@ -91,7 +98,6 @@ function Admin() {
                         className={"material-icons service-modal-icon"}
                         onClick={(e) => setShow(false)}
                       >
-                        {" "}
                         close
                       </i>
                     </ul>
@@ -161,7 +167,7 @@ function Admin() {
             </div>
             <div className="col-md-6">
               <h2>Hizmatlar</h2>
-              {service.map((e) => {
+              {service.reverse().map((e) => {
                 // console.log(e._id);
                 return (
                   <div key={e._id} className={"text-black border-bottom"}>

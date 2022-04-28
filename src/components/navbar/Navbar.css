@@ -1,0 +1,26 @@
+.meny{
+       position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5);
+    overflow: hidden !important;
+    z-index: 5;
+}
+.meny-into{
+    position: fixed;
+    top :5px;
+    left: 20%;
+    transform: translate(-50%,50%);
+    /* background: rgb(238, 152, 152); */
+    background: transparent;
+    width: 50rem;
+    max-width:30%;
+    box-shadow: 0 6px 15px 0 rgba(0,0,0,.5);
+    animation:normal;
+}
+.link{
+  text-decoration: none ;
+  font-family: 'Times New Roman';
+}
