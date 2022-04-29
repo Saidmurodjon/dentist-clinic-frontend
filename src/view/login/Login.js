@@ -24,7 +24,7 @@ function Login() {
 
   const Check = async () => {
     if (login.login === "admin" && login.password === "admin") {
-      navigate("/admin");
+      navigate("/payment");
     } else if (login.login.length > 0 && login.password.length > 0) {
       for (let i = 0; i < doctor.length; i++) {
         if (doctor[i].login === login.login) {

@@ -29,7 +29,7 @@ function Navbar(props) {
               <div className="meny" onClick={(e) => setShow(!show)}>
                 <div className="meny-into">
                   <div className="collection">
-                    <Link className="text-dark link" to="/admin">
+                    <Link className="text-dark link" to="/payment">
                       <ul className="collection-item ">Home</ul>
                     </Link>
                     <Link className="text-dark link" to="/payment">
