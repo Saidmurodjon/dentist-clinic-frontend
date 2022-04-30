@@ -6,7 +6,7 @@ function AddDoctorList(props) {
     return <h3>Doctor ma'lumotlari mavjud emas</h3>;
   }
   return (
-    <div className="row"> 
+    <div className="row">
       {doctors.map((item) => (
         <AddDoctorItem key={item._id} {...item} />
       ))}

@@ -6,6 +6,7 @@ import Login from "../view/login/Login";
 import Pay from "../view/admin/Pay";
 import AddDoctor from "../view/add-doctor/AddDoctor";
 import ChangeDoctor from '../components/change-doctor/ChangeDoctor'
+import SendSMS from "../view/send-sms/SendSMS";
 function Router() {
   return (
     <>
@@ -17,6 +18,7 @@ function Router() {
         <Route path="/pay/:id" element={<Pay />} />
         <Route path="/add-doctor" element={<AddDoctor />} />
         <Route path="/add-doctor/:id" element={<ChangeDoctor />} />
+        <Route path='/sendSMS' element={<SendSMS/>}/>
       </Routes>
     </>
   );

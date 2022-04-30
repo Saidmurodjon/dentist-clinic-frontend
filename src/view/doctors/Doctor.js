@@ -10,40 +10,50 @@ function Doctor() {
   const doctor = JSON.parse(localStorage.getItem("doctor"));
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
+  const [services, setServices] = useState([]);
   const [service, setService] = useState([]);
   const [showService, setShowService] = useState(false);
+  const [fiterService, SetFilterValue] = useState("");
   const [patient, setPatient] = useState({
     name: "",
     lastName: "",
     address: "",
-    age: "",
     service: order,
     type: "",
     doctorName: doctor.name,
     date: date.getDate(),
     tel: "+9989",
   });
+
   useEffect(() => {
     setPatient({ ...patient, service: order });
   }, [order]);
-  // console.log(patient);
+  // Service hizmatlarini olish boshlandi
   useEffect(() => {
     axios
       .get("https://dentist-back.herokuapp.com/service")
       .then((res) => {
-        res.data && setService(res.data);
+        res.data && setServices(res.data);
         setLoading(false);
       })
       .catch((error) => console.log(error));
   }, []);
+  // Service hizmatlarini olish tugadi
+
+  useEffect(() => {
+    const newService = services.filter((elem) =>
+      elem.name.toLowerCase().includes(fiterService.toLowerCase())
+    );
+    setService(newService);
+  }, [fiterService]);
+  //Yangi kelgan bemorni ma'lumotlarini qo'shish
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
+    setService(services);
   };
-  //Yangi kelgan bemorni ma'lumotlarini qo'shish
   async function Add() {
     if (
       patient.name.length <= 0 ||
-      patient.age.length <= 0 ||
       patient.address.length <= 0 ||
       patient.lastName.length <= 0
     ) {
@@ -155,78 +165,77 @@ function Doctor() {
                 <ul className="collection mt-0">
                   <li className={"collection-item active"}>Bemor qo'shish</li>
                 </ul>
-                <form
-                  onSubmit={Submit}
-                  className="globalBorder border-light p-3"
-                >
-                  <input
-                    className="form-control mt-5"
-                    type="text"
-                    placeholder="Name"
-                    name="name"
-                    value={patient.name}
-                    onChange={changeHandler}
-                  />
-                  <input
-                    className="form-control mt-5"
-                    type="text"
-                    placeholder="Last Name"
-                    name="lastName"
-                    value={patient.lastName}
-                    onChange={changeHandler}
-                  />
-                  <input
-                    className="form-control mt-5"
-                    type="text"
-                    placeholder="Address"
-                    name="address"
-                    value={patient.address}
-                    onChange={changeHandler}
-                  />
-                  <input
-                    className="form-control mt-5"
-                    type="number"
-                    placeholder="Age"
-                    name="age"
-                    value={patient.age}
-                    min="0"
-                    onChange={changeHandler}
-                  />
-                  <br />
-                  <label>
+                <div className={"p-3"}>
+                  <form
+                    onSubmit={Submit}
+                    className="globalBorder border-light "
+                  >
                     <input
-                      name="type"
-                      type="radio"
-                      className="form-check-input m-5"
-                      value="male"
+                      className="form-control mt-5"
+                      type="text"
+                      placeholder="Ism"
+                      name="name"
+                      value={patient.name}
                       onChange={changeHandler}
                     />
-                    <span>Erkak</span>
-                  </label>
+                    <input
+                      className="form-control mt-5"
+                      type="text"
+                      placeholder="Familya"
+                      name="lastName"
+                      value={patient.lastName}
+                      onChange={changeHandler}
+                    />
+                    <input
+                      className="form-control mt-5"
+                      type="text"
+                      placeholder="Manzil"
+                      name="address"
+                      value={patient.address}
+                      onChange={changeHandler}
+                    />
+                    <br />
+                    <label>
+                      <input
+                        name="type"
+                        type="radio"
+                        className="form-check-input m-5"
+                        value="male"
+                        onChange={changeHandler}
+                      />
+                      <span>Erkak</span>
+                    </label>
 
-                  <label>
+                    <label>
+                      <input
+                        name="type"
+                        type="radio"
+                        className="form-check-input m-5"
+                        value="female"
+                        onChange={changeHandler}
+                      />
+                      <span>Ayol</span>
+                    </label>
+                    <br />
+                    <br />
+                    <br />
                     <input
-                      name="type"
-                      type="radio"
-                      className="form-check-input m-5"
-                      value="female"
-                      onChange={changeHandler}
+                      type={"search"}
+                      className={"form-control d-inline"}
+                      placeholder={"Service hizmatlarini qidirish"}
+                      onChange={(e) => SetFilterValue(e.target.value)}
                     />
-                    <span>Ayol</span>
-                  </label>
-                  <br />
-                  <br />
-                  <br />
+                  </form>
                   <div className="border service">
                     <ServicesList service={service} AddBasket={AddBasket} />
                   </div>
-                  <input
+                  <button
+                    className={"btn btn-success mt-3 w-100"}
                     onClick={() => Add()}
-                    value="Add"
-                    type="submit"
-                    className="btn btn-primary m-2"
-                  />
-                </form>
+                  >
+                    Yuborish
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -23,7 +23,6 @@ function AddDoctor(props) {
     setShowDoctor(!showDoctor);
   };
 
-
   return (
     <>
       <Navbar />

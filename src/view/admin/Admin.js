@@ -92,7 +92,7 @@ function Admin() {
                   >
                     <ul className={"collection mt-0"}>
                       <li className={"collection-item active"}>
-                        Service Update
+                        Hizmatni yangilash
                       </li>
                       <i
                         className={"material-icons service-modal-icon"}
@@ -136,13 +136,13 @@ function Admin() {
             {/*Service update qismi tugadi*/}
 
             <div className="col-md-6">
-              <h2>Yangi hizmat qo'shish</h2>
+              <h2 className="text-center">Yangi hizmat qo'shish</h2>
               <div className="">
                 <form onSubmit={Submit} className="globalBorder border-light">
                   <input
                     className="form-control mt-5"
                     type="text"
-                    placeholder="Name"
+                    placeholder="Nomi"
                     name="name"
                     value={input.name}
                     onChange={changeHandler}
@@ -151,23 +151,57 @@ function Admin() {
                   <input
                     className="form-control mt-5"
                     type="text"
-                    placeholder="Cost"
+                    placeholder="Qiymati"
                     name="cost"
                     value={input.cost}
                     onChange={changeHandler}
                   />
                   <input
                     onClick={() => Send()}
-                    value="Add"
+                    value="Saqlash"
                     type="submit"
                     className="btn btn-primary mt-3"
                   />
                 </form>
               </div>
             </div>
-            <div className="col-md-6">
-              <h2>Hizmatlar</h2>
-              {service.reverse().map((e) => {
+            <div className="col-md-6 col-sm-12">
+              <h2 className="text-center">Hizmatlar</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th className="border text-center">#</th>
+                    <th className="border text-center">Nomi</th>
+                    <th className="border text-center">Qiymati</th>
+                    <th className="border text-center">Yangilash</th>
+                    <th className="border text-center">Olib tashlash</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {service.reverse().map((e, index) => (
+                    <tr key={e._id}>
+                      <td className="border text-center">{index + 1}</td>
+                      <td className="border text-center">{e.name}</td>
+                      <td className="border text-center">{e.cost}</td>
+                      <td className="border text-center">
+                        <span className="material-icons text-secondary" onClick={() => Edit(e)}>
+                          edit
+                        </span>
+                      </td>
+                      <td className="border text-center">
+                        <span
+                          className="material-icons text-danger"
+                          onClick={() => Delete(e)}
+                        >
+                          delete_forever
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {/* {service.reverse().map((e) => {
                 // console.log(e._id);
                 return (
                   <div key={e._id} className={"text-black border-bottom"}>
@@ -194,7 +228,7 @@ function Admin() {
                     </button>
                   </div>
                 );
-              })}
+              })} */}
               {/* modall edite qilish uchun */}
             </div>
           </div>

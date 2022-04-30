@@ -17,9 +17,9 @@ function PatientCardList(props) {
     <tr className={"border"}>
       <th className={"border text-center "}>#</th>
 
-      <th className={"border text-center "}>Ism</th>
-      <th className={"border text-center "}>Familiya</th>
-      <th className={"border text-center "}>Doctor Ismi</th>
+      <th className={"border text-center "}>Ismi</th>
+      <th className={"border text-center "}>Familiyasi</th>
+      <th className={"border text-center "}>Doktor Ismi</th>
       <th className={"text-center"}>To'lov qilish</th>
     </tr>
     </thead>

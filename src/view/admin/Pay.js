@@ -12,7 +12,6 @@ function Pay() {
     name: PatientInfo.name,
     lastName: PatientInfo.lastName,
     address: PatientInfo.address,
-    age: PatientInfo.age,
     service: PatientInfo.service,
     type: PatientInfo.type,
     doctorName: PatientInfo.doctorName,
@@ -20,9 +19,7 @@ function Pay() {
     date: date.getDate(),
     signature: "",
   });
-  console.log(PatientInfo);
   const [show, setShow] = useState(false);
-  const [conoform, setConiform] = useState(false);
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
@@ -33,7 +30,6 @@ function Pay() {
   async function Add() {
     if (
       patient.name.length <= 0 ||
-      patient.age.length <= 0 ||
       patient.address.length <= 0 ||
       patient.lastName.length <= 0 ||
       patient.type.length <= 0
@@ -60,6 +56,8 @@ function Pay() {
     setPatient((prev) => ({ ...prev, signature: sigPad.current.toDataURL() }));
     if (patient.tel.length > 12) {
       setShow(true);
+
+
     } else {
       alert("Telefon raqam kiriting");
     }
@@ -90,22 +88,6 @@ function Pay() {
                 onChange={changeHandler}
               />
               <input
-                className="form-control mt-5"
-                type="text"
-                placeholder="Address"
-                name="address"
-                value={PatientInfo.address}
-                onChange={changeHandler}
-              />
-              <input
-                className="form-control mt-5"
-                type="text"
-                placeholder="Age"
-                name="age"
-                value={PatientInfo.age}
-                onChange={changeHandler}
-              />
-              <input
                 className="form-control-tel mt-5"
                 type="tel"
                 placeholder="tel"
@@ -124,8 +106,8 @@ function Pay() {
                   <h3 className="">
                     <b>{index + 1}.</b> {item.name}{" "}
                     <span>
-                      {item.cost}x{item.quantity}={item.cost * item.quantity}{" "}
-                      so'm{" "}
+                      {item.cost}x{item.quantity}={item.cost * item.quantity}
+                      so'm
                     </span>
                   </h3>
                 </div>
@@ -155,49 +137,37 @@ function Pay() {
               corporis laudantium et magni, illum reiciendis quidem neque odio.
               Accusantium, nostrum!
             </p>
-            <h3
-              onClick={(e) => setConiform(true)}
-              className={"text-danger"}
-              style={{ cursor: "pointer" }}
-            >
-              Yuqoridagi shartlarga roziman !
-            </h3>
+
           </div>
           {/* Imzo qo'yish uchun */}
 
-          {conoform ? (
-            <>
-              <div className="col-md-8  justify-content-center w-100">
-                <SignatureCanvas
+          <>
+            <div className="col-md-8  justify-content-center w-100">
+              <SignatureCanvas
                   backgroundColor="rgb(240,230,140)"
                   penColor="black"
-                  canvasProps={{ width: 700, height: 600 }}
+                  canvasProps={{ width: 700, height: 400 }}
                   ref={sigPad}
-                />
-                <br />
-                <button className="btn btn-info m-2" onClick={clear}>
-                  Clear
-                </button>
-                <button className="btn btn-danger m-2" onClick={save}>
-                  Save
-                </button>
-              </div>
-              <div className="col-md-12 justify-content-center">
-                {/*<img*/}
-                {/*    src={patient.signature}*/}
-                {/*    className="img-thumbnail w-25 mt-5"*/}
-                {/*    alt="signature"*/}
-                {/*/>*/}
-              </div>
-              <div>
-                {show ? (
+              />
+              <br />
+              <button className="btn btn-info m-2" onClick={clear}>
+                Tozalash
+              </button>
+              <button className="btn btn-danger m-2" onClick={save}>
+                Saqlash
+              </button>
+            </div>
+            <div className="col-md-12 justify-content-center">
+            </div>
+            <div>
+              {show ? (
                   <button className={"btn btn-primary"} onClick={Add}>
-                    Update
+                    Yuborish
                   </button>
-                ) : null}
-              </div>
-            </>
-          ) : null}
+              ) : null}
+            </div>
+          </>
+
         </div>
       </div>
     </>

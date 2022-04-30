@@ -15,13 +15,23 @@ function Navbar(props) {
               healing
             </span>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <Link to="/payment" className="link text-white">
-                Payment
+              <Link to="/add-doctor" className="link text-white">
+                Doktorlar
               </Link>
             </ul>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
-              <Link to="/add-doctor" className="link text-white">
-                Doctors
+              <Link to="/payment" className="link text-white">
+                To'lov
+              </Link>
+            </ul>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <Link to="/sendSMS" className="link text-white">
+                Habar yuborish
+              </Link>
+            </ul>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <Link to="/admin" className="link text-white">
+                Hizmatlar
               </Link>
             </ul>
 
@@ -30,13 +40,20 @@ function Navbar(props) {
                 <div className="meny-into">
                   <div className="collection">
                     <Link className="text-dark link" to="/payment">
-                      <ul className="collection-item ">Home</ul>
+                      <ul className="collection-item border ">Home</ul>
                     </Link>
                     <Link className="text-dark link" to="/payment">
-                      <ul className="collection-item text-dark">Payment</ul>
+                      <ul className="collection-item border-bottom">Payment</ul>
                     </Link>
                     <Link className="text-dark link" to="/add-doctor">
-                      <ul className="collection-item ">Doctors</ul>
+                      <ul className="collection-item border-bottom ">
+                        Doctors
+                      </ul>
+                    </Link>
+                    <Link className="text-dark link" to="/sendSMS">
+                      <ul className="collection-item  border-bottom">
+                        Habar yuborish
+                      </ul>
                     </Link>
                   </div>
                 </div>
