@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cart from "../../components/cart/Cart";
 import Loader from "../../components/loader/Loader";
+import PatientList from "../../components/patients/PatientList";
 import { ServicesList } from "../../components/services/ServicesList";
 import { ServiceModalList } from "../../components/servise-list/ServiceModalList";
 import "./Doctor.css";
@@ -14,6 +15,9 @@ function Doctor() {
   const [service, setService] = useState([]);
   const [showService, setShowService] = useState(false);
   const [fiterService, SetFilterValue] = useState("");
+  const [patients, setPatients] = useState([]);
+  const [patientsFilter, setPatientsFilter] = useState([]);
+
   const [patient, setPatient] = useState({
     name: "",
     lastName: "",
@@ -21,8 +25,9 @@ function Doctor() {
     service: order,
     type: "",
     doctorName: doctor.name,
-    date: date.getDate(),
+    date: date,
     tel: "+9989",
+    doctorID: doctor._id,
   });
 
   useEffect(() => {
@@ -39,6 +44,24 @@ function Doctor() {
       .catch((error) => console.log(error));
   }, []);
   // Service hizmatlarini olish tugadi
+  //  bemor ma'lumotlarini olish boshlandi
+  useEffect(() => {
+    axios
+      .get("https://dentist-back.herokuapp.com/patient")
+      .then((res) => {
+        res.data && setPatients(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  //  bemor ma'lumotlarini olish tugadi
+  // patients filer qilish boshlandi
+   useEffect(() => {
+     const newPatients = patients.filter((elem) =>
+       elem.doctorID===doctor._id && new Date(elem.date).toDateString()===new Date().toDateString()
+     );
+     setPatientsFilter(newPatients);
+   }, [patients]);
+  // patients filer qilish tugadi
 
   useEffect(() => {
     const newService = services.filter((elem) =>
@@ -58,7 +81,6 @@ function Doctor() {
       patient.lastName.length <= 0
     ) {
       alert("ma'lumotlar to'liq kiritilmagan?");
-      // return true;
     } else {
       await axios
         .post("https://dentist-back.herokuapp.com/patient", patient)
@@ -237,6 +259,11 @@ function Doctor() {
                   </button>
                 </div>
               </div>
+            </div>
+            {/*bir kunlik ko'rgan bemorlar ma'lumotlari */}
+            <div className="col-md-12 col-sm-12 justify-content-center m-5">
+              <h3 className="text-center text-ceondary m-5">Davolangan bemorlar</h3>
+              <PatientList filterPatient={patientsFilter} />
             </div>
           </div>
         )}

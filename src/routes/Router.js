@@ -7,6 +7,7 @@ import Pay from "../view/admin/Pay";
 import AddDoctor from "../view/add-doctor/AddDoctor";
 import ChangeDoctor from '../components/change-doctor/ChangeDoctor'
 import SendSMS from "../view/send-sms/SendSMS";
+import Calc from "../view/calc/Calc";
 function Router() {
   return (
     <>
@@ -19,6 +20,7 @@ function Router() {
         <Route path="/add-doctor" element={<AddDoctor />} />
         <Route path="/add-doctor/:id" element={<ChangeDoctor />} />
         <Route path='/sendSMS' element={<SendSMS/>}/>
+        <Route path="/calc/:id" element={<Calc/>}/>
       </Routes>
     </>
   );

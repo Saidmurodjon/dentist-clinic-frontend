@@ -2,3 +2,6 @@
   text-decoration: none ;
   font-family: 'Times New Roman';
 }
+.cursor{
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import '../../index.css'
 function AddDoctorItem(props) {
   const navigate = useNavigate();
   const { _id, name, age, lastName, address, tel, login, password } = props;
@@ -19,81 +19,46 @@ function AddDoctorItem(props) {
     localStorage.setItem("dentist", JSON.stringify(doctor));
     navigate(`/add-doctor/${doctor._id}`);
   };
-  return (
-    <div className="col-md-4">
-      <div className="card sticky-action z-depth-3" id={_id}>
-        <ul className={"collection mt-0"}>
-          <li className={"collection-item active"}>
-            <b>Doctor ma'lumotlari </b>
-          </li>
-        </ul>
-        <ul className="p-3">
-          <li className={"p-2"}>
-            <h4 className="d-inline">Ism:</h4>
-            <ul className={"secondary-content"}>
-              <h4 className={"text-success"}>
-                <b>{name}</b>
-              </h4>
-            </ul>
-          </li>
-          <li className={"p-2"}>
-            <h4 className="d-inline">Familiya:</h4>
-            <ul className={"secondary-content"}>
-              <h4 className={"text-success"}>
-                <b>{lastName}</b>
-              </h4>
-            </ul>
-          </li>
-          <li className={"p-2"}>
-            <h4 className="d-inline">Yoshi:</h4>
-            <ul className={"secondary-content"}>
-              <h4 className={"text-success"}>
-                <b>{age}</b>
-              </h4>
-            </ul>
-          </li>
-          <li className={"p-2"}>
-            <h4 className="d-inline">Manzil:</h4>
-            <ul className={"secondary-content"}>
-              <h4 className={"text-success"}>
-                <b>{address}</b>
-              </h4>
-            </ul>
-          </li>
-          <li className={"p-2"}>
-            <h4 className="d-inline">Tel:</h4>
-            <ul className={"secondary-content"}>
-              <h4 className={"text-success"}>
-                <b>{tel}</b>
-              </h4>
-            </ul>
-          </li>
-          <li className={"p-2"}>
-            <h4 className="d-inline">Login:</h4>
-            <ul className={"secondary-content"}>
-              <h4 className={"text-success"}>
-                <b>{login}</b>
-              </h4>
-            </ul>
-          </li>
-          <li className={"p-2"}>
-            <h4 className="d-inline">Password:</h4>
-            <ul className={"secondary-content"}>
-              <h4 className={"text-success"}>
-                <b>{password}</b>
-              </h4>
-            </ul>
-          </li>
-        </ul>
+  const Calc=()=>{
+    navigate(`/calc/${doctor._id}`);
 
-        <button className="btn btn-success m-1" onClick={() => Update(doctor)}>
-          <b>Update</b>
-        </button>
-        <button className="btn btn-danger m-1" onClick={() => Delete(_id)}>
-          <b> Delete</b>
-        </button>
-      </div>
-    </div>
+  }
+  return (
+    <tbody>
+      <tr className={"border "}>
+        <td className={"border text-center "}>{"1"}</td>
+        <td className={"border text-center "}>{name}</td>
+        <td className={"border text-center "}>{lastName}</td>
+        <td className={"border text-center "}>{address}</td>
+        <td className={"border text-center "}>{tel}</td>
+        <td className={"border text-center "}>{login}</td>
+        <td className={"border text-center "}>{password}</td>
+        <td className={"border text-center "}>
+          <span
+            className="material-icons text-secondary cursor"
+            onClick={() => Update(doctor)}
+          >
+            edit
+          </span>
+        </td>
+        <td className={"border text-center "}>
+          <span
+            className="material-icons text-danger cursor"
+            onClick={() => Delete(_id)}
+          >
+            delete_forever
+          </span>
+        </td>
+        <td className={"border text-center"}>
+          <span
+            className="material-icons text-success cursor"
+            onClick={() => Calc(_id)}
+          >
+            calculate
+          </span>
+        </td>
+      </tr>
+    </tbody>
   );
 }
 

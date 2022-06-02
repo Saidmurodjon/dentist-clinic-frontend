@@ -141,7 +141,7 @@ function AddDoctorInput(props) {
 
         <input
           onClick={() => Add()}
-          value="Add"
+          value="Yuborish"
           type="submit"
           className="btn btn-primary m-2"
         />

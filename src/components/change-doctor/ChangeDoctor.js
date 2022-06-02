@@ -114,11 +114,11 @@ function ChangeDoctor(props) {
               />
             </form>
             <button className="btn btn-info m-2" onClick={() => Back()}>
-              <b>Back</b> <i className="material-icons left">undo</i>
+              <b>Ortga qaytish</b> <i className="material-icons left">undo</i>
             </button>
             <button className="btn btn-danger m-2" onClick={() => Add()}>
               {/* <i class="material-icons left">cloud_upload </i> */}
-              <b>Update</b>
+              <b>Yangilash</b>
             </button>
           </div>
         </div>

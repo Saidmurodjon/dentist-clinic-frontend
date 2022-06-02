@@ -13,7 +13,6 @@ function PatientCardItem(props) {
         <td className={"border text-center "}>{doctorName}</td>
 
         <td className={"text-center"}>
-          {" "}
           <button
             className={"btn btn-success m-0"}
             onClick={() => Update(patient)}
@@ -27,3 +26,4 @@ function PatientCardItem(props) {
 }
 
 export default PatientCardItem;
+  
